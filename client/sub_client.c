@@ -210,7 +210,7 @@ void print_usage(void)
 	printf("\nSee http://mosquitto.org/ for more information.\n\n");
 }
 
-int main(int argc, char *argv[])
+int main_mosquitto_sub(int argc, char *argv[])
 {
 	struct mosq_config cfg;
 	struct mosquitto *mosq = NULL;
