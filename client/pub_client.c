@@ -53,7 +53,7 @@ static char *password = NULL;
 static bool disconnect_sent = false;
 static bool quiet = false;
 
-void my_connect_callback(struct mosquitto *mosq, void *obj, int result)
+void my_connect_callback_pub(struct mosquitto *mosq, void *obj, int result)
 {
 	int rc = MOSQ_ERR_SUCCESS;
 
@@ -369,7 +369,7 @@ int main_mosquitto_pub(int argc, char *argv[])
 	if(cfg.debug){
 		mosquitto_log_callback_set(mosq, my_log_callback);
 	}
-	mosquitto_connect_callback_set(mosq, my_connect_callback);
+	mosquitto_connect_callback_set(mosq, my_connect_callback_pub);
 	mosquitto_disconnect_callback_set(mosq, my_disconnect_callback);
 	mosquitto_publish_callback_set(mosq, my_publish_callback);
 

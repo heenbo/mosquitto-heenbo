@@ -83,7 +83,7 @@ void my_message_callback(struct mosquitto *mosq, void *obj, const struct mosquit
 	}
 }
 
-void my_connect_callback(struct mosquitto *mosq, void *obj, int result)
+void my_connect_callback_sub(struct mosquitto *mosq, void *obj, int result)
 {
 	int i;
 	struct mosq_config *cfg;
@@ -254,7 +254,7 @@ int main_mosquitto_sub(int argc, char *argv[])
 		mosquitto_log_callback_set(mosq, my_log_callback);
 		mosquitto_subscribe_callback_set(mosq, my_subscribe_callback);
 	}
-	mosquitto_connect_callback_set(mosq, my_connect_callback);
+	mosquitto_connect_callback_set(mosq, my_connect_callback_sub);
 	mosquitto_message_callback_set(mosq, my_message_callback);
 
 	rc = client_connect(mosq, &cfg);
