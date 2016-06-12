@@ -117,7 +117,7 @@ void my_subscribe_callback(struct mosquitto *mosq, void *obj, int mid, int qos_c
 	if(!cfg->quiet) printf("\n");
 }
 
-void my_log_callback(struct mosquitto *mosq, void *obj, int level, const char *str)
+void my_log_callback_sub(struct mosquitto *mosq, void *obj, int level, const char *str)
 {
 	printf("%s\n", str);
 }
@@ -251,7 +251,7 @@ int main_mosquitto_sub(int argc, char *argv[])
 		return 1;
 	}
 	if(cfg.debug){
-		mosquitto_log_callback_set(mosq, my_log_callback);
+		mosquitto_log_callback_set(mosq, my_log_callback_sub);
 		mosquitto_subscribe_callback_set(mosq, my_subscribe_callback);
 	}
 	mosquitto_connect_callback_set(mosq, my_connect_callback_sub);

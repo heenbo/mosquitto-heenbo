@@ -119,7 +119,7 @@ void my_publish_callback(struct mosquitto *mosq, void *obj, int mid)
 	}
 }
 
-void my_log_callback(struct mosquitto *mosq, void *obj, int level, const char *str)
+void my_log_callback_pub(struct mosquitto *mosq, void *obj, int level, const char *str)
 {
 	printf("%s\n", str);
 }
@@ -367,7 +367,7 @@ int main_mosquitto_pub(int argc, char *argv[])
 		return 1;
 	}
 	if(cfg.debug){
-		mosquitto_log_callback_set(mosq, my_log_callback);
+		mosquitto_log_callback_set(mosq, my_log_callback_pub);
 	}
 	mosquitto_connect_callback_set(mosq, my_connect_callback_pub);
 	mosquitto_disconnect_callback_set(mosq, my_disconnect_callback);
