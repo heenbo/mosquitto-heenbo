@@ -13,7 +13,7 @@ include ../config.mk
 all : mosquitto_client
 
 mosquitto_client : mosquitto_client.o  pub_client.o sub_client.o client_shared.o
-	${CROSS_COMPILE}${CC} $^ -o $@ ${CLIENT_LDFLAGS}
+	${CROSS_COMPILE}${CC} $^ -o $@ ${CLIENT_LDFLAGS} -lpthread
 
 mosquitto_client.o : mosquitto_client.c mosquitto_client.h 
 	${CROSS_COMPILE}${CC} -c $< -o $@ ${CLIENT_CFLAGS}

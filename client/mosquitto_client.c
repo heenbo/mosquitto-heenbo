@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include "mosquitto_client.h"
 
 #define CA_FILE_PATH 	"/home/heenbo/work/openssl_CA/ca.crt"
@@ -48,6 +49,17 @@ char * msg_pub_arg[] = {
 	"-t", TOPIC_01,
 };
 
+//pthread for sub
+int rc_sub_thread = -1;
+pthread_t pthread_sub_thread;
+
+void * sub_thread(void *arg)
+{
+	main_mosquitto_sub(ARG_SUB_MAX, msg_sub_arg);
+
+	return NULL;
+}
+
 int main(int argc, char *argv[])
 {
 	printf("test001\n");
@@ -59,12 +71,16 @@ int main(int argc, char *argv[])
 	main_mosquitto_pub(ARG_PUB_MAX, msg_pub_arg);
 	free(msg_pub_arg[ARG_PUB_MSG_VALUE]);
 
-	main_mosquitto_sub(ARG_SUB_MAX, msg_sub_arg);
+	rc_sub_thread = pthread_create(&pthread_sub_thread, NULL, sub_thread, NULL);
 //main_mosquitto_sub(argc, char *argv[]);
 //main_mosquitto_pub(int argc, char *argv[]);
 
 
-
+	while(1)
+	{
+		sleep(1);
+	}
 	printf("test002\n");
+	
 	return 0;
 }
