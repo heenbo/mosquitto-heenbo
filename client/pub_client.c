@@ -440,6 +440,7 @@ int main_mosquitto_pub(int argc, char *argv[])
 	mosquitto_destroy(mosq);
 	mosquitto_lib_cleanup();
 
+printf("############################here OK?????\n");
 	if(rc){
 		fprintf(stderr, "Error: %s\n", mosquitto_strerror(rc));
 	}
