@@ -122,7 +122,7 @@ void my_log_callback_sub(struct mosquitto *mosq, void *obj, int level, const cha
 	printf("%s\n", str);
 }
 
-void print_usage(void)
+void print_usage_sub(void)
 {
 	int major, minor, revision;
 
@@ -221,7 +221,7 @@ int main_mosquitto_sub(int argc, char *argv[])
 		client_config_cleanup(&cfg);
 		if(rc == 2){
 			/* --help */
-			print_usage();
+			print_usage_sub();
 		}else{
 			fprintf(stderr, "\nUse 'mosquitto_sub --help' to see usage.\n");
 		}

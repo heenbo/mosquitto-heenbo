@@ -198,7 +198,7 @@ int load_file(const char *filename)
 	return 0;
 }
 
-void print_usage(void)
+void print_usage_pub(void)
 {
 	int major, minor, revision;
 
@@ -311,7 +311,7 @@ int main_mosquitto_pub(int argc, char *argv[])
 		client_config_cleanup(&cfg);
 		if(rc == 2){
 			/* --help */
-			print_usage();
+			print_usage_pub();
 		}else{
 			fprintf(stderr, "\nUse 'mosquitto_pub --help' to see usage.\n");
 		}
@@ -342,7 +342,7 @@ int main_mosquitto_pub(int argc, char *argv[])
 
 	if(!topic || mode == MSGMODE_NONE){
 		fprintf(stderr, "Error: Both topic and message must be supplied.\n");
-		print_usage();
+		print_usage_pub();
 		return 1;
 	}
 
