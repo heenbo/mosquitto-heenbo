@@ -46,7 +46,9 @@ char * msg_pub_arg[] = {
 	"-u", USER_NAME,
 	"-P", USER_PASSWD,
 	"-i", CLIENT_ID_02,
-	"-m", "",
+	"-l",
+	"-d",
+//	"-m", "",
 	"-t", TOPIC,
 };
 
@@ -90,22 +92,22 @@ void * sub_thread(void *arg)
 int pub_message(char *msg_topic, char * msg_pub)
 {
 	
-	msg_pub_arg[ARG_PUB_MSG_VALUE] = (char *)malloc(sizeof(char)*(1+strlen(msg_pub)));
+//	msg_pub_arg[ARG_PUB_MSG_VALUE] = (char *)malloc(sizeof(char)*(1+strlen(msg_pub)));
 
 	msg_pub_arg[ARG_PUB_TOPIC_VALUE] = (char *)malloc(sizeof(char)*(1+strlen(msg_topic)));
 
 
-	strcpy(msg_pub_arg[ARG_PUB_MSG_VALUE], (const char *)msg_pub);
+//	strcpy(msg_pub_arg[ARG_PUB_MSG_VALUE], (const char *)msg_pub);
 	strcpy(msg_pub_arg[ARG_PUB_TOPIC_VALUE], (const char *)msg_topic);
 
 	printf("msg_topic:%s line:%d\n", msg_topic, __LINE__);
-	printf("msg_pub:%s line:%d\n", msg_pub, __LINE__);
+//	printf("msg_pub:%s line:%d\n", msg_pub, __LINE__);
 
 	print_msg_pub_arg(msg_pub_arg);
 
 	main_mosquitto_pub(ARG_PUB_MAX, msg_pub_arg);
 
-	free(msg_pub_arg[ARG_PUB_MSG_VALUE]);
+//	free(msg_pub_arg[ARG_PUB_MSG_VALUE]);
 	free(msg_pub_arg[ARG_PUB_TOPIC_VALUE]);
 
 
@@ -126,7 +128,7 @@ int main(int argc, char *argv[])
 //main_mosquitto_pub(int argc, char *argv[]);
 
 
-	while(1)
+//	while(1)
 	{
 		pub_message(msg_topic1, msg_pub);
 		

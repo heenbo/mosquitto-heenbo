@@ -560,11 +560,15 @@ int mosquitto_publish(struct mosquitto *mosq, int *mid, const char *topic, int p
 	uint16_t local_mid;
 	int queue_status;
 
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 	if(!mosq || !topic || qos<0 || qos>2) return MOSQ_ERR_INVAL;
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 	if(STREMPTY(topic)) return MOSQ_ERR_INVAL;
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 	if(payloadlen < 0 || payloadlen > MQTT_MAX_PAYLOAD) return MOSQ_ERR_PAYLOAD_SIZE;
 
 	if(mosquitto_pub_topic_check(topic) != MOSQ_ERR_SUCCESS){
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 		return MOSQ_ERR_INVAL;
 	}
 
@@ -574,8 +578,10 @@ int mosquitto_publish(struct mosquitto *mosq, int *mid, const char *topic, int p
 	}
 
 	if(qos == 0){
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 		return _mosquitto_send_publish(mosq, local_mid, topic, payloadlen, payload, qos, retain, false);
 	}else{
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 		message = _mosquitto_calloc(1, sizeof(struct mosquitto_message_all));
 		if(!message) return MOSQ_ERR_NOMEM;
 
@@ -585,6 +591,7 @@ int mosquitto_publish(struct mosquitto *mosq, int *mid, const char *topic, int p
 		message->msg.topic = _mosquitto_strdup(topic);
 		if(!message->msg.topic){
 			_mosquitto_message_cleanup(&message);
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 			return MOSQ_ERR_NOMEM;
 		}
 		if(payloadlen){
@@ -592,6 +599,7 @@ int mosquitto_publish(struct mosquitto *mosq, int *mid, const char *topic, int p
 			message->msg.payload = _mosquitto_malloc(payloadlen*sizeof(uint8_t));
 			if(!message->msg.payload){
 				_mosquitto_message_cleanup(&message);
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 				return MOSQ_ERR_NOMEM;
 			}
 			memcpy(message->msg.payload, payload, payloadlen*sizeof(uint8_t));
@@ -616,6 +624,7 @@ int mosquitto_publish(struct mosquitto *mosq, int *mid, const char *topic, int p
 		}else{
 			message->state = mosq_ms_invalid;
 			pthread_mutex_unlock(&mosq->out_message_mutex);
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 			return MOSQ_ERR_SUCCESS;
 		}
 	}

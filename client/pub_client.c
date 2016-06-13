@@ -392,6 +392,7 @@ int main_mosquitto_pub(int argc, char *argv[])
 					buf_len_actual = strlen(buf);
 					if(buf[buf_len_actual-1] == '\n'){
 						buf[buf_len_actual-1] = '\0';
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
 						rc2 = mosquitto_publish(mosq, &mid_sent, topic, buf_len_actual-1, buf, qos, retain);
 						if(rc2){
 							if(!quiet) fprintf(stderr, "Error: Publish returned %d, disconnecting.\n", rc2);
@@ -440,7 +441,8 @@ int main_mosquitto_pub(int argc, char *argv[])
 	mosquitto_destroy(mosq);
 	mosquitto_lib_cleanup();
 
-printf("############################here OK?????\n");
+	printf("FILE:%s->FUNC:%s->LINE:%d\n", __FILE__, __FUNCTION__, __LINE__);
+
 	if(rc){
 		fprintf(stderr, "Error: %s\n", mosquitto_strerror(rc));
 	}
